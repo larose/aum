@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Horaire {{ league_name }}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+    <link href="../style.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <header>
+      <nav>
+        <div class="nav-wrapper">
+          <a href=".." class="brand-logo center">Horaire AUM</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <h4 class="center-align">{{ league_name }}</h4>
+        {% for date, division in divisions_by_day %}
+        <div class="row">
+          <h5 class="center-align">{{ date|format_date }}</h5>
+        </div>
+        {% for division_name, games in division %}
+        <div class="row">
+          <h5 class="center-align">{{ division_name }}</h5>
+        </div>
+
+        {% for game in games %}
+        <div class="row hide-on-med-and-up">
+          <div class="col s12">
+            {{ game.scheduled_time.time().strftime('%H:%M') }}
+            - <span class="tooltipped" data-position="top"
+            data-delay="0" data-tooltip="{{ game.field_name }}">{{
+            game.field_name_abbr }}</span> - <strong>{{
+            game.away_team_name }}</strong>{% if game.away_score is
+            not none %} ({{ game.away_score }}){% endif %}
+            vs <strong>{{ game.home_team_name }}</strong>{% if
+            game.home_score is not none %} ({{ game.home_score }}){%
+            endif %}
+          </div>
+        </div>
+
+        <div class="row hide-on-small-and-down">
+          <div class="col s2 m3">
+            {{ game.scheduled_time.time().strftime('%H:%M') }}
+          </div>
+          <div class="col s3 m3">
+            {{ game.away_team_name }}{% if game.away_score is not none %} ({{ game.away_score }}){% endif %}
+          </div>
+          <div class="col s3 m3">
+            {{ game.home_team_name }}{% if game.home_score is not none %} ({{ game.home_score }}){% endif %}
+          </div>
+          <div class="col s4 m3">
+            {{ game.field_name }}
+          </div>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+
+      </div>
+
+    </main>
+
+    <footer class="page-footer">
+      <div class="footer-copyright">
+        <div class="container">
+          Créé par <a href="https://mathieularose.com"
+                                                   class="grey-text
+                                                   text-lighten-4">Mathieu
+                                                   Larose</a>
+            <span class="grey-text text-lighten-4 right"><i>{{ last_update }}</i></span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+  </body>
+</html>

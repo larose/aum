@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Horaire AUM</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+    <link href="style.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <header>
+
+      <nav>
+        <div class="nav-wrapper">
+          <a href="" class="brand-logo center">Horaire AUM</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+
+        {% for league in leagues %}
+        <div class="row">
+
+          <h5>{{ league.name }}</h5>
+
+          <div class="collection">
+            {% for round in league.rounds %}
+            <a class="collection-item" href="{{ round.url }}">{{ round.name }} <span class="grey-text text-darken-2 league-range">{{ round.start|format_date_without_year }} au {{ round.end|format_date_without_year }}</span></a>
+            {% endfor %}
+
+          </div>
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </main>
+
+    <footer class="page-footer">
+      <div class="footer-copyright">
+        <div class="container">
+          Créé par <a href="https://mathieularose.com"
+                                                   class="grey-text
+                                                   text-lighten-4">Mathieu
+                                                   Larose</a>
+            <span class="grey-text text-lighten-4 right"><i>{{ last_update }}</i></span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+  </body>
+</html>
