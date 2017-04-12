@@ -228,7 +228,7 @@ def main():
             'name': "{} ({})".format(league_name.strip(), league_session.strip().replace('-', '&#8209;')),
             'rounds': [
                 {
-                    'name': l['name'].split('-')[2].strip(),
+                    'name': l['name'].split('-')[1].strip(),
                     'url': l['url'],
                     'start': l['start'],
                     'end': l['end']
