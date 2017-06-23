@@ -211,15 +211,18 @@ def main():
         'leagues': []
     }
 
+    now = datetime.datetime.now()
+
     for future in futures:
         result = future.result()
 
-        raw_leagues.append({
-            'name': result['name'],
-            'url': result['slugified_name'] + '/',
-            'start': result['start'],
-            'end': result['end']
-        })
+        if now <= result['end']:
+            raw_leagues.append({
+                'name': result['name'],
+                'url': result['slugified_name'] + '/',
+                'start': result['start'],
+                'end': result['end']
+            })
 
     for league_prefix, _leagues in itertools.groupby(sorted(raw_leagues, key=lambda league: league['name']), league_groupby_key):
         _leagues = list(_leagues)
